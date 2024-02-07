@@ -152,6 +152,8 @@ module.exports = async function (request, response) {
       ));
       return
     }
+
+    
     console.log("关键词配置：", keywordAutoReply, "文本内容：" + Content, "匹配结果：", Object.hasOwnProperty.call(keywordAutoReply, Content));
     if (Object.hasOwnProperty.call(keywordAutoReply, Content)) {
       //关键词自动回复
