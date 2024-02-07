@@ -86,6 +86,7 @@ const emojiObj = {
   "/:li": "闪电劈你"
 };
 const pb = new PocketBase(process.env.PB);
+const payUrl = process.env.PAYURL;
 const keywordAutoReply = JSON.parse(process.env.KEYWORD_REPLAY);
 module.exports = async function (request, response) {
   const method = request.method;
@@ -125,6 +126,18 @@ module.exports = async function (request, response) {
     if (Object.hasOwnProperty.call(emojiObj, Content)) {
       //用户发送了微信自带表情
       Content = '我发送了表情：' + emojiObj[Content] + '，现在你要怎么做'
+    }
+    //关键词触发
+    if(Content==="充值"){
+      const pay_msg = `当前系统仅支持单次充值一元人民币（两次生成机会），如果同意请<a href="${payUrl}?uid=${$FromUserName}">点击此处前往充值</a>`;
+      console.log("触发关键词自动回复");
+      response.status(200).send(formatReply(
+        FromUserName,
+        ToUserName,
+        timeNow,
+        pay_msg
+      ));
+      return
     }
     console.log("关键词配置：", keywordAutoReply, "文本内容：" + Content, "匹配结果：", Object.hasOwnProperty.call(keywordAutoReply, Content));
     if (Object.hasOwnProperty.call(keywordAutoReply, Content)) {
