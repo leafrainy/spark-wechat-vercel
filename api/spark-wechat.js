@@ -129,7 +129,7 @@ module.exports = async function (request, response) {
     }
     //关键词触发
     if(Content==="充值"){
-      const pay_msg = `当前系统仅支持单次充值一元人民币（两次生成机会），如果同意请<a href="${payUrl}?uid=${$FromUserName}">点击此处前往充值</a>`;
+      const pay_msg = `当前系统仅支持单次充值一元人民币（两次生成机会），如果同意请<a href="${payUrl}?uid=${FromUserName}">点击此处前往充值</a>`;
       console.log("触发关键词自动回复");
       response.status(200).send(formatReply(
         FromUserName,
