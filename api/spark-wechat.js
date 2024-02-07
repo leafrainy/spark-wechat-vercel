@@ -147,11 +147,11 @@ module.exports = async function (request, response) {
     if (Event === 'subscribe') {
       //注册用户
       const data = {
-        "username": ToUserName,
+        "username": FromUserName,
         "email": "",
         "emailVisibility": true,
-        "password": ToUserName,
-        "passwordConfirm": ToUserName,
+        "password": FromUserName,
+        "passwordConfirm": FromUserName,
         "num": 1
     };
 
