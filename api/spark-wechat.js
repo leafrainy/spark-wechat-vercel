@@ -4,6 +4,7 @@ const url = require('url');
 const querystring = require('querystring');
 const xml2js = require('xml2js');
 const WebSocket = require('ws');
+const PocketBase = require('pocketbase');
 
 dotenv.config();
 
@@ -84,6 +85,7 @@ const emojiObj = {
   "/:cake": "蛋糕",
   "/:li": "闪电劈你"
 };
+const pb = new PocketBase(process.env.PB);
 const keywordAutoReply = JSON.parse(process.env.KEYWORD_REPLAY);
 module.exports = async function (request, response) {
   const method = request.method;
@@ -143,6 +145,18 @@ module.exports = async function (request, response) {
   if (MsgType === 'event') {
     const Event = textMsg.xml.Event[0];
     if (Event === 'subscribe') {
+      //注册用户
+      const data = {
+        "username": ToUserName,
+        "email": "",
+        "emailVisibility": true,
+        "password": ToUserName,
+        "passwordConfirm": ToUserName,
+        "num": 1
+    };
+
+    await pb.collection('ai_user').create(data);
+      
       response.status(200).send(formatReply(
         FromUserName,
         ToUserName,
