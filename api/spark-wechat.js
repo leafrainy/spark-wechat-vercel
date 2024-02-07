@@ -4,7 +4,7 @@ const url = require('url');
 const querystring = require('querystring');
 const xml2js = require('xml2js');
 const WebSocket = require('ws');
-const PocketBase = require('pocketbase');
+const PocketBase = require('pocketbase/cjs');
 
 dotenv.config();
 
