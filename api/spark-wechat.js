@@ -139,6 +139,19 @@ module.exports = async function (request, response) {
       ));
       return
     }
+    if(Content==="余额"){
+      const record = await pb.collection('ai_user').getFirstListItem('username="'+FromUserName+'"');
+      console.log(record);
+      const yue_msg = `您当前剩余生成次数：，如果余额不足请<a href="${payUrl}?uid=${FromUserName}">点击此处前往充值</a>`;
+      console.log("触发关键词自动回复");
+      response.status(200).send(formatReply(
+        FromUserName,
+        ToUserName,
+        timeNow,
+        yue_msg
+      ));
+      return
+    }
     console.log("关键词配置：", keywordAutoReply, "文本内容：" + Content, "匹配结果：", Object.hasOwnProperty.call(keywordAutoReply, Content));
     if (Object.hasOwnProperty.call(keywordAutoReply, Content)) {
       //关键词自动回复
