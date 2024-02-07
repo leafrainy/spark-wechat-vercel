@@ -145,17 +145,22 @@ module.exports = async function (request, response) {
   if (MsgType === 'event') {
     const Event = textMsg.xml.Event[0];
     if (Event === 'subscribe') {
-      //注册用户
-      const data = {
-        "username": FromUserName,
-        "email": "",
-        "emailVisibility": true,
-        "password": FromUserName,
-        "passwordConfirm": FromUserName,
-        "num": 1
-    };
-
-    await pb.collection('ai_user').create(data);
+      try{
+        //注册用户
+        const data = {
+          "username": FromUserName,
+          "email": "",
+          "emailVisibility": true,
+          "password": FromUserName,
+          "passwordConfirm": FromUserName,
+          "num": 1
+      };
+  
+      await pb.collection('ai_user').create(data);
+      }catch(e){
+        console.log(e);
+      }
+      
       
       response.status(200).send(formatReply(
         FromUserName,
