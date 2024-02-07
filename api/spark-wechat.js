@@ -142,7 +142,8 @@ module.exports = async function (request, response) {
     if(Content==="余额"){
       const record = await pb.collection('ai_user').getFirstListItem('username="'+FromUserName+'"');
       console.log(record);
-      const yue_msg = `您当前剩余生成次数：，如果余额不足请<a href="${payUrl}?uid=${FromUserName}">点击此处前往充值</a>`;
+      const yue = record.num
+      const yue_msg = `您当前剩余生成次数：${yue}次，如果余额不足请<a href="${payUrl}?uid=${FromUserName}">点击此处前往充值</a>`;
       console.log("触发关键词自动回复");
       response.status(200).send(formatReply(
         FromUserName,
