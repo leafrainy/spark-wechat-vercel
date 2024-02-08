@@ -87,6 +87,7 @@ const emojiObj = {
 };
 const pb = new PocketBase(process.env.PB);
 const payUrl = process.env.PAYURL;
+const aiUrl = process.env.AIURL;
 const keywordAutoReply = JSON.parse(process.env.KEYWORD_REPLAY);
 module.exports = async function (request, response) {
   const method = request.method;
@@ -150,6 +151,18 @@ module.exports = async function (request, response) {
         ToUserName,
         timeNow,
         yue_msg
+      ));
+      return
+    }
+    if(Content==="ai"){
+      
+      const ai_msg = `请<a href="https://${aiUrl}?uid=${FromUserName}">点击此处前往AI创作</a>`;
+      console.log("触发关键词自动回复");
+      response.status(200).send(formatReply(
+        FromUserName,
+        ToUserName,
+        timeNow,
+        ai_msg
       ));
       return
     }
