@@ -13,6 +13,7 @@ let userLastChatTime = {};
 let userStashMsg = {};
 let userHasAnswerIng = {};
 
+
 const emojiObj = {
   "/::)": "微笑",
   "/::~": "伤心",
@@ -141,7 +142,7 @@ module.exports = async function (request, response) {
       return
     }
     if(Content==="余额"){
-      const record = await pb.collection('ai_user').getFirstListItem('username="'+FromUserName+'"');
+      const record = await pb.collection('ai_user').getFirstListItem('username2="'+FromUserName+'"');
       console.log(record);
       const yue = record.num
       const yue_msg = `您当前剩余生成次数：${yue}次，如果余额不足请<a href="https://${payUrl}?uid=${FromUserName}">点击此处前往充值</a>`;
