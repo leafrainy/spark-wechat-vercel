@@ -190,7 +190,9 @@ module.exports = async function (request, response) {
       try{
         //注册用户
         const data = {
-          "username": FromUserName,
+          "username": calculateMD5(FromUserName),
+          "username2":FromUserName,
+            
           "email": "",
           "emailVisibility": true,
           "password": FromUserName,
@@ -364,7 +366,8 @@ async function getConnect() {
 }
 
 function assembleAuthUrl1() {
-  const hostUrl = process.env.HOST_URL;
+
+const hostUrl = process.env.HOST_URL;
   const apiKey = process.env.API_KEY;
   const apiSecret = process.env.API_SECRET;
   const ul = url.parse(hostUrl);
@@ -387,3 +390,12 @@ function hmacWithShaTobase64(algorithm, data, key) {
   const encodeData = hmac.digest();
   return Buffer.from(encodeData).toString('base64');
 }
+
+function calculateMD5(input) {
+  const md5Hash = crypto.createHash('md5');
+  md5Hash.update(input);
+  return md5Hash.digest('hex');
+}
+
+
+  
