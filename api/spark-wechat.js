@@ -12,7 +12,6 @@ let userLastChatTime = {};
 let userStashMsg = {};
 let userHasAnswerIng = {};
 
-
 const emojiObj = {
   "/::)": "微笑",
   "/::~": "伤心",
